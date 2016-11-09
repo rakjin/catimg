@@ -131,32 +131,44 @@ int main(int argc, char *argv[])
                                 if (bgCol == 0xffff)
                                     printf("\e[m ");
                                 else
+                                    /*
                                     printf("\x1b[38;2;%d;%d;%dm\u2580",
                                            lowerPixel->r, lowerPixel->g, lowerPixel->b
                                            );
+                                    */
                                     // printf("\e[0;38;5;%um\u2584", bgCol);
+                                       printf("\e[0;38;5;%um\u2584", bgCol);
                             } else {
                                 if (bgCol == 0xffff)
+                                    /*
                                     printf("\x1b[48;2;%d;%d;%dm\u2580",
                                            upperPixel->r, upperPixel->g, upperPixel->b
                                            );
+                                    */
                                          // printf("\e[0;38;5;%um\u2580", fgCol);
+                                            printf("\e[0;38;5;%u;48;5;%um\u2584", 0, fgCol);
                                 else
+                                    /*
                                     printf("\x1b[48;2;%d;%d;%dm\x1b[38;2;%d;%d;%dm\u2584",
                                            upperPixel->r, upperPixel->g, upperPixel->b,
                                            lowerPixel->r, lowerPixel->g, lowerPixel->b
                                            );
+                                    */
 
                                     /* printf("\e[38;5;%u;48;5;%um\u2580", fgCol, bgCol); */
+                                       printf("\e[38;5;%u;48;5;%um\u2584", bgCol, fgCol);
                             }
                         } else { // this is the last line
                             if (fgCol == 0xffff)
                                 printf("\e[m ");
                             else
+                              /*
                               printf("\x1b[48;2;%d;%d;%dm\u2580",
                                      upperPixel->r, upperPixel->g, upperPixel->b
                                      );
+                              */
                             // printf("\e[38;5;%um\u2580", fgCol);
+                               printf("\e[38;5;%u;48;5;%um\u2584", 0, fgCol);
                         }
                     } else {
                         if (fgCol == 0xffff)
