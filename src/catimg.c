@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
     int c;
     opterr = 0;
 
-    uint32_t cols = 0, precision = 0;
+    int32_t cols = 0;
+    uint32_t precision = 0;
     while ((c = getopt (argc, argv, "w:l:r:h")) != -1)
         switch (c) {
             case 'w':
@@ -89,8 +90,10 @@ int main(int argc, char *argv[])
             precision = 1;
     }
 
-    if (cols < 1) // if precision is 2 we can use the terminal full width. Otherwise we can only use half
+    if (cols == 0) // if precision is 2 we can use the terminal full width. Otherwise we can only use half
         cols = terminal_columns() / (2 / precision);
+    else if (cols < 0) // negative means cols := (terminal_width-value)
+        cols = terminal_columns() / (2 / precision) - (-cols);
     img_load_from_file(&img, file);
     if (cols < img.width) {
         float sc = cols/(float)img.width;
